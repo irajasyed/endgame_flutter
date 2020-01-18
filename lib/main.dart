@@ -1,3 +1,5 @@
+import 'package:end_game_demo/screen2.dart';
+import 'package:end_game_demo/screen3.dart';
 import 'package:flutter/material.dart';
 
 final redShadeColor = Colors.red.shade500;
@@ -6,6 +8,8 @@ final textColor = Colors.white70;
 
 void main() => runApp(MaterialApp(
       home: EndGame(),
+      theme: ThemeData.dark()
+          .copyWith(appBarTheme: AppBarTheme().copyWith(color: redShadeColor)),
     ));
 
 class EndGame extends StatefulWidget {
@@ -40,7 +44,7 @@ class _EndGameState extends State<EndGame> {
       backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
         title: Text('End Game Demo'),
-        backgroundColor: redShadeColor,
+//        backgroundColor: redShadeColor,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -82,21 +86,38 @@ class _EndGameState extends State<EndGame> {
           ),
           Visibility(
             visible: this.winner != '',
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
-              width: double.infinity,
-              height: 70,
-              decoration: BoxDecoration(
-                color: greyShade,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Text(
-                  '$winner Wins!',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.0,
-                      color: textColor),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      if (winner == ironManLabel) {
+                        return Screen2();
+                      } else if (winner == thanosLabel) {
+                        return Screen3();
+                      }
+                      return null;
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
+                width: double.infinity,
+                height: 70,
+                decoration: BoxDecoration(
+                  color: greyShade,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Text(
+                    '$winner Wins!',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30.0,
+                        color: textColor),
+                  ),
                 ),
               ),
             ),
